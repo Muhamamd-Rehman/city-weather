@@ -1,0 +1,352 @@
+<!--- tell browser that this is html document -->
+<!DOCTYPE html>
+
+<!--- start of html: it is root of page-->
+<!--- it is root of page-->
+<html>
+
+<!--- start of head -->
+<!--- Info about the page goes here (like styles, title) -->
+<head>
+  <title>City Weather</title>
+
+  <!--- start of style -->
+  <!--- Control how things look using CSS styling -->
+  <style>
+    :root {
+      --bg: #f2f9ff;
+      --box-bg: white;
+      --text: #000;
+      --button-bg: #8B2c53;
+      --button-text: white}
+
+    body {
+      background-color: #747f8a;
+      background-image: url("https://www.transparenttextures.com/patterns/grey-jean.png");
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 40px;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      margin-bottom: 28px;
+      color: #8B2c53;  /* Wine color */
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 1rem;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--button-bg);  /* Uses your wine color */
+      color: var(--button-text);
+      border: none;
+      border-radius: 999px;  /* ✅ Makes it pill/round shaped */
+      padding: 10px 20px;    /* ✅ More vertical + horizontal space */
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.1s ease;
+    }
+
+    .toggle-btn:hover {
+      background-color: #420423; /* Darker wine shade on hover */
+    }
+
+    .toggle-btn:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .weather-box {
+      background: var(--box-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .weather-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(139, 44, 83, 0.4);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    input.shake {
+      animation: shake 0.4s ease-in-out;
+      border-color: red;
+    }
+
+    .weather-box img {
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    .weather-line {
+      margin: 5px 0;
+    }
+
+    .error {
+    color: red;
+    opacity: 0;
+    font-size: 1.2rem;
+    animation: fadeSlideUp 0.6s ease-in-out forwards;
+    margin-top: 20px;
+    }
+
+    .flag {
+      width: 30px;
+      height: 24px;
+      vertical-align: middle;
+      margin-left: 5px;
+      border-radius: 4px;
+     }
+
+    .weather-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 2rem;
+    }
+
+    .sky-bottom {
+      margin-top: 1rem;
+    }
+
+    .unit-btn {
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      border-radius: 999px; /* fully rounded pill shape */
+      padding: 10px 20px;   /* give more space for rounded look */
+      margin-left: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .unit-btn:hover {
+      background-color: #420423;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap; /* Optional: handles small screens */
+    }
+
+    .map-link {
+      color: #8B2c53;
+      font-weight: bold;
+      text-decoration: none;  /* remove underline from entire link */
+      padding: 8px 12px;
+      border-radius: 8px;
+      background-color: #f7eef2;
+      transition: background 0.3s, color 0.3s;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .map-link:hover {
+      background-color: #747F8A;
+      color: white;
+    }
+
+    .underline-only {
+      text-decoration: underline;
+    }
+
+    .weather-icon {
+      width: 100px;
+      height: 100px;
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+
+    .weather-icon:hover {
+      transform: scale(1.1) rotate(5deg);
+      filter: brightness(1.2);
+    }
+ }
+  </style>
+  <!--- end of style -->
+
+</head>
+<!--- end of head -->
+
+<!--- start of body -->
+<!--- Contains everything that will be visible on page -->
+<body>
+
+  <h1 style="font-size: 3.5rem;">City Weather</h1>
+
+  <!--- start of form -->
+  <!--- sends data to the server using POST method-->
+  <form method="POST" id="weather-form">
+    <input type="text" name="city" placeholder="Enter City" value="{{ weather.city or '' }}" required>
+    <!-- Toggle button for units -->
+    <input type="hidden" name="units" id="units-field" value="{{ weather.unit }}">
+    <button type="submit">Get Weather</button>
+    <button type="button" id="toggle-units" class="unit-btn" data-unit="{{ weather.unit }}">
+      {% if weather.unit == 'metric' %}
+        Switch to °F
+      {% else %}
+        Switch to °C
+      {% endif %}
+    </button>
+  </form>
+  <!--- end of form -->
+
+  <!--- start of weather box -->
+  <!--- container with all data -->
+  <div class="weather-box">
+    <div class="weather-line">
+      <strong>City:</strong> {{ weather.city if weather.city else "---" }}
+      {% if weather.city %}
+        <div class="weather-line">
+          <a href="https://www.google.com/maps/search/{{ weather.city | urlencode }}"
+             target="_blank"
+             class="map-link">
+            <span class="underline-only">View on Maps</span> 🗺️
+          </a>
+        </div>
+      {% endif %}
+
+      <div class="weather-line"><strong>Country:</strong> {{ weather.country or '---'}}</div>
+      {% set valid_country = weather.country and weather.country|length == 2 and weather.country != 'None' %}
+
+      {% if valid_country %}
+        <img class="flag" src="https://flagsapi.com/{{ weather.country }}/flat/64.png" alt="{{ weather.country }}">
+      {% else %}
+        <div class="weather-line" style="margin-top: 10px; color: #666; font-style: italic;">
+          No flag icon available
+        </div>
+      {% endif %}
+    </div>
+  <div class="weather-line"><strong>Local Time:</strong> {{ weather.local_time or '---' }}</div>
+  <div class="weather-line"><strong>Date:</strong> {{ date }}</div>
+
+  <div class="weather-line">
+    <strong>Temperature:</strong> {{ weather.temperature }}°{% if weather.unit == 'metric' %}C{% else %}F{% endif %}
+  </div>
+  <div class="weather-line"><strong>Humidity:</strong> {{ weather.humidity }}%</div>
+  <div class="weather-line">
+    <strong>Wind Speed:</strong> {{ weather.wind }} {% if weather.unit == 'metric' %}m/s{% else %}mph{% endif %}
+  </div>
+  <div class="weather-line"><strong>Sunrise:</strong> {{ weather.sunrise }} | <strong>Sunset:</strong> {{ weather.sunset }}</div>
+  <div class="weather-line"><strong>Sky:</strong> {{ weather.sky }}</div>
+
+  {% if weather.icon and weather.icon != '---' %}
+    <div class="weather-line" style="margin-top: 10px;">
+      <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png"
+        alt="Weather Icon"
+        class="weather-icon">
+    </div>
+  {% else %}
+    <div class="weather-line" style="margin-top: 10px; color: #666; font-style: italic;">
+      No weather icon available
+    </div>
+  {% endif %}
+
+    </div>
+  <!--- end of weather box -->
+
+  {% if weather.error %}
+    <div class="error" style="color: red; margin-top: 20px;">
+      {{ weather.error }}
+    </div>
+  {% endif %}
+
+  <!--- start of script -->
+  <!---handles unit toggle button function and animation for wrong city input-->
+  <script>
+    if (document.querySelector(".error")) {
+      const input = document.querySelector("input[name='city']");
+      input.classList.add("shake");
+
+      setTimeout(() => {
+        input.classList.remove("shake");
+      }, 500);
+    }
+    const toggleBtn = document.getElementById("toggle-units");
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        const form = document.querySelector("form");
+
+        const currentUnit = toggleBtn.getAttribute("data-unit");
+        const newUnit = currentUnit === "metric" ? "imperial" : "metric";
+
+        // Create or update hidden input named 'units'
+        let unitInput = document.querySelector('input[name="units"]');
+        if (!unitInput) {
+          unitInput = document.createElement("input");
+          unitInput.type = "hidden";
+          unitInput.name = "units";
+          form.appendChild(unitInput);
+        }
+        unitInput.value = newUnit;
+
+        form.submit();
+      });
+    }
+
+  </script>
+  <!--- end of script -->
+
+</body>
+ <!--- end of body -->
+
+</html>
+<!--- end of html -->

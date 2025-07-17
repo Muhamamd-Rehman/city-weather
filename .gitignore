@@ -1,0 +1,25 @@
+# Ignore all virtual environments
+**/venv/
+**/.venv/
+**/env/
+**/.env
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter checkpoints (if using notebooks)
+.ipynb_checkpoints/
+
+# IDE/editor config files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
