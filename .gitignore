@@ -17,9 +17,18 @@ __pycache__/
 .vscode/
 .idea/
 
+# Ignore Prometheus binaries
+/prometheus/prometheus
+/prometheus/promtool
+/prometheus/console_libraries/
+/prometheus/consoles/
+
 # OS files
 .DS_Store
 Thumbs.db
 
-# Log files
+# Ignore all large binaries or temp files
+*.tar.gz
+*.zip
 *.log
+*.db

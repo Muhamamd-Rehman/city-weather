@@ -2,6 +2,7 @@
 import os
 from datetime import datetime
 from flask import Flask, render_template, request
+from prometheus_flask_exporter import PrometheusMetrics
 from weather_api import get_weather
 # for reading API key securely, we will use dotenv
 from dotenv import load_dotenv
@@ -12,6 +13,8 @@ API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 # creating Flask app instance
 app = Flask(__name__)
+# add /metrics endpoint to our city weather app (so that our metrics become available at /metrics endpoint)
+metrics = PrometheusMetrics(app)
 
 
 # call this function when user accesses (GET) or submits a request (POST) to homepage
