@@ -30,3 +30,6 @@ scrape_configs:
        # The label name is added as a label `label_name=<label_value>` to any timeseries scraped from this config.
         labels:
           app: "city-weather"
+
+
+# Ask prometheus to check data from http://localhost:5000/metrics every 5 seconds.
