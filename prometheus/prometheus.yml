@@ -32,4 +32,4 @@ scrape_configs:
           app: "city-weather"
 
 
-# Ask prometheus to check data from http://localhost:5000/metrics every 5 seconds.
+# Prometheus will pull data from /metrics endpoint every 15s and show it on localhost.

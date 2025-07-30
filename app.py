@@ -14,16 +14,16 @@ API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 # creating Flask app instance
 app = Flask(__name__)
-# add /metrics endpoint to our city weather app (so that our metrics become available at /metrics endpoint)
+# add /metrics endpoint to our city weather app (prometheus_flask_exporter will push our metrics to /metrics endpoint)
 metrics = PrometheusMetrics(app)
 
 # setting custom prometheus metrics
 city_weather_requests_total = Counter("city_weather_requests_total", "Total number of city weather requests including invalid requests")
 invalid_city_search_total = Counter("invalid_city_search_total", "Number of times an invalid city was entered")
 api_usage_limit_exceed_total = Counter("api_usage_limit_exceed_total", "Number of times API usage limit was exceeded")
-city_searches_total = Counter("city_searches_total", "Number of times each city was searched", ["city"])
+city_search_count_total = Counter("city_search_count_total", "Number of times each city was searched", ["city"])
 temp_unit_selection_total = Counter("temp_unit_selection_total", "Number of times each temperature unit (°C/°F) was requested", ["temp_unit"])
-city_temperature_value = Gauge("city_temperature_value", "Latest reported temperature of selected city in Celsius", ["city"])
+city_temperature_value = Gauge("city_temperature_value", "Latest reported temperature of selected city in Celsius", ["city", "temp_unit"])
 
 
 # call this function when user accesses (GET) or submits a request (POST) to homepage
@@ -70,15 +70,15 @@ def home():
             # incrementing temp_unit_selection_total counter
             temp_unit_selection_total.labels(temp_unit=unit).inc()
 
-            # incrementing counter if specific city has been searched
-            city_lower = weather_data["city"].lower()
-            if city_lower in ["ulm", "melbourne", "seattle", "lahore", "jakarta", "doha", "rawalpindi", "hamburg"]:
-                city_searches_total.labels(city=city_lower).inc()
+            # incrementing counter for city_searches_total
+            city_search_count_total.labels(city=city.lower()).inc()
+            # city_lower = weather_data["city"].lower()
+            # if city_lower in ["ulm", "melbourne", "seattle", "lahore", "jakarta", "doha", "rawalpindi", "hamburg"]:
 
             # noting the latest temperature value of current city
             try:
                 temperature = float(weather_data["temperature"])
-                city_temperature_value.labels(city=city).set(temperature)
+                city_temperature_value.labels(city=city.lower(), temp_unit=unit).set(temperature)
             except (ValueError, TypeError):
                 pass
     else:
