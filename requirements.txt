@@ -2,3 +2,4 @@ flask
 python-dotenv
 prometheus_client
 requests
+prometheus_flask_exporter
