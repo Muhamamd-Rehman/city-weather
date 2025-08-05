@@ -1,0 +1,32 @@
+version: '3.8'  # Docker Compose version
+
+services:
+  # 1. Flask Weather App
+  flask-app:
+    build: .  # Build the image using Dockerfile in current directory
+    ports:
+      - "5000:5000"  # Map host port 5000 to container port 5000
+    env_file:
+      - .env  # Pass environment variables from .env file to container
+
+  # 2. Prometheus (metrics scraper)
+  prometheus:
+    image: prom/prometheus  # Use official Prometheus image
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      # Mount your config file into Prometheus container
+    ports:
+      - "9090:9090"  # Expose Prometheus UI on host
+
+  # 3. Grafana (dashboard/visualization)
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana:/var/lib/grafana
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+
