@@ -2,7 +2,7 @@ version: '3.8'  # Docker Compose version
 
 services:
   # 1. Flask Weather App
-  flask-app:
+  city-weather-app:
     build: .  # Build the image using Dockerfile in current directory
     ports:
       - "5000:5000"  # Map host port 5000 to container port 5000
@@ -22,7 +22,7 @@ services:
   grafana:
     image: grafana/grafana
     ports:
-      - "3000:3000"
+      - "3030:3000"
     volumes:
       - ./grafana:/var/lib/grafana
       - ./grafana/dashboards:/var/lib/grafana/dashboards
