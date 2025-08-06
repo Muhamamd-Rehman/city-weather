@@ -22,10 +22,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "dete8jjkboykgc"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -133,10 +130,7 @@
       "type": "table"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "dete8jjkboykgc"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -216,10 +210,7 @@
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dete8jjkboykgc"
-          },
+          "datasource": "Prometheus",
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
@@ -239,10 +230,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "dete8jjkboykgc"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -339,10 +327,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "dete8jjkboykgc"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -439,10 +424,7 @@
       "type": "table"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "dete8jjkboykgc"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
