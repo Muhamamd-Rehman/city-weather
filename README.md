@@ -47,7 +47,7 @@ city-weather/ (project-root)
         └── datasources/
             └── datasource.yml                        
 ├── templates/
-│   ├── index.html  # html and CSS index file   
+│   ├── index.html  
 ├── README.md   
 ├── app.py 
 ├──weather_api.py 
