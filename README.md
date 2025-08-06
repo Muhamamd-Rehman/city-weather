@@ -72,4 +72,7 @@ city-weather/ (project-root)
 - User: `admin`
 - Password: `admin`
 
-You will find prebuilt dashboard in Grafana under `Dashboards` → `City Weather Dashboard`.
+You will find prebuilt dashboard in Grafana under `Dashboards` → `City Weather Dashboard`
+
+Use `docker-compose stop` to stop the running containers. This command keeps the built docker images, containers, 
+volumes etc. and does not remove them. To rerun the city weather application, use `docker-compose start`.
